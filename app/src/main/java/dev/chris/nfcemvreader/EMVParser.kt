@@ -208,7 +208,23 @@ object EMVParser {
         val pan = panHex.takeWhile { it.uppercaseChar() != 'F' }
         if (pan.length < 13) return "PAN_TOO_SHORT"
 
-        return pan.replaceRange(6, pan.length - 4, "******")
+        val startIndex = 6
+        val endIndex = pan.length - 4
+
+        // This check is technically redundant due to the length < 13 check,
+        // but it's good practice.
+        if (startIndex >= endIndex) {
+            return "PAN_INVALID_FORMAT"
+        }
+
+        // --- The Fix ---
+        // Dynamically create the mask string based on the number of
+        // digits being replaced, instead of hard-coding "******".
+        val maskLength = endIndex - startIndex
+        val mask = "*".repeat(maskLength)
+        // --- End Fix ---
+
+        return pan.replaceRange(startIndex, endIndex, mask)
     }
 
     // --- Utilities ---
