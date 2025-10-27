@@ -13,8 +13,8 @@ data class TransactionLog(
     val aid: String? = null,            // Tag 84
     val appLabel: String? = null,      // Tag 50
     val pan: String? = null,            // Tag 5A (Masked)
-    val amount: String? = null,        // Tag 9F02 (N/A in this context)
-    val currency: String? = null,      // Tag 5F2A (N/A in this context)
+    val amount: String? = null,
+    val currency: String? = null,
     val verboseLogs: VerboseData? = null
 )
 
